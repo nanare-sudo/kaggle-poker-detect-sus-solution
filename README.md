@@ -18,19 +18,23 @@ space. CPU and GPU stages use separate environments to preserve their numerical
 behavior.
 
 ```bash
+git clone https://github.com/nanare-sudo/kaggle-poker-detect-sus-solution.git
+cd kaggle-poker-detect-sus-solution
 uv sync --locked --python 3.12
 uv venv --python 3.12 .gpu-venv
 uv pip install --python .gpu-venv/bin/python -r package/requirements-gpu.txt \
   --extra-index-url https://download.pytorch.org/whl/cu128
 ```
 
-Install the model archive supplied with this release:
+Install the model archive from [release v2.0.0](https://github.com/nanare-sudo/kaggle-poker-detect-sus-solution/releases/tag/v2.0.0):
 
 ```bash
-python download_models.py --archive /path/to/poker_s5_j50_models_v2.zip
+python download_models.py --url https://github.com/nanare-sudo/kaggle-poker-detect-sus-solution/releases/download/v2.0.0/poker_s5_j50_models_v2.zip
 uv run --locked python verify_release.py
 uv run --locked pytest -q
 ```
+
+For a previously downloaded archive, use `--archive /path/to/poker_s5_j50_models_v2.zip` instead of `--url`.
 
 `download_models.py` checks every file against `MODELS.json`. The archive contains
 fitted weights, feature-index arrays and the public TabICL checkpoint. The code
